@@ -16,8 +16,10 @@
 package org.jboss.cdi.tck.tests.lookup.injection.persistence;
 
 import jakarta.enterprise.context.Dependent;
+import jakarta.persistence.EntityAgent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceAgent;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceUnit;
 
@@ -42,5 +44,15 @@ public class Persistor {
     @PersistenceUnit
     private void setSuperPersistenceUnit(EntityManagerFactory superPersistenceUnit) {
         this.superPersistenceUnit = superPersistenceUnit;
+    }
+
+    @PersistenceAgent
+    protected EntityAgent superPersistenceAgentField;
+
+    protected EntityAgent superPersistenceAgent;
+
+    @PersistenceAgent
+    private void setSuperPersistenceAgent(EntityAgent superPersistenceAgent) {
+        this.superPersistenceAgent = superPersistenceAgent;
     }
 }

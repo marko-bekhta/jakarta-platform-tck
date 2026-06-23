@@ -17,8 +17,10 @@ package org.jboss.cdi.tck.tests.lookup.injection.persistence;
 
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityAgent;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.PersistenceAgent;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceUnit;
 
@@ -35,6 +37,11 @@ public class SpecialPersistor extends Persistor {
 
     EntityManagerFactory persistenceUnit;
 
+    @PersistenceAgent
+    EntityAgent persistenceAgentField;
+
+    EntityAgent persistenceAgent;
+
     public boolean initializerCalledAfterResourceInjection = false;
 
     @Inject
@@ -42,7 +49,9 @@ public class SpecialPersistor extends Persistor {
         initializerCalledAfterResourceInjection = (persistenceContextField != null && persistenceContext != null
                 && superPersistenceContextField != null && superPersistenceContext != null
                 && persistenceUnitField != null && persistenceUnit != null
-                && superPersistenceUnitField != null && superPersistenceUnit != null);
+                && superPersistenceUnitField != null && superPersistenceUnit != null
+                && persistenceAgentField != null && persistenceAgent != null
+                && superPersistenceAgentField != null && superPersistenceAgent != null);
     }
 
     @PersistenceContext
@@ -53,5 +62,10 @@ public class SpecialPersistor extends Persistor {
     @PersistenceUnit
     private void setPersistenceUnit(EntityManagerFactory persistenceUnit) {
         this.persistenceUnit = persistenceUnit;
+    }
+
+    @PersistenceAgent
+    private void setPersistenceAgent(EntityAgent persistenceAgent) {
+        this.persistenceAgent = persistenceAgent;
     }
 }
